@@ -1,9 +1,12 @@
 import dlib
 import cv2
 from math import hypot
+import collections
 
 predictorModel = 'shape_predictor_model/shape_predictor_68_face_landmarks.dat'
 predictor = dlib.shape_predictor(predictorModel)
+
+mouth_states = collections.deque(maxlen=10)
 
 def calcDistance(pointA, pointB):
 
@@ -13,12 +16,13 @@ def calcDistance(pointA, pointB):
 
 
 def mouthTrack(faces, frame):
+    global mouth_states
 
     for face in faces:
 
         facialLandmarks = predictor(frame, face)
 
-         # Outer lip distance (51, 57)
+        # Outer lip distance (51, 57)
         outerDist = calcDistance(
             (facialLandmarks.part(51).x, facialLandmarks.part(51).y),
             (facialLandmarks.part(57).x, facialLandmarks.part(57).y)
@@ -45,10 +49,21 @@ def mouthTrack(faces, frame):
         outerRatio = outerDist / faceHeight
         innerRatio = innerDist / faceHeight
 
-        # Adaptive threshold based on face height
-        mouth_open = outerRatio > 0.15 or innerRatio > 0.08
+        # Adaptive threshold (adjust these values based on testing)
+        MOUTH_OPEN_THRESHOLD_OUTER = 0.17  # 0.15 → 0.17 for better accuracy
+        MOUTH_OPEN_THRESHOLD_INNER = 0.09  # 0.08 → 0.09
 
-        status = "Mouth Open" if mouth_open else "Mouth Closed"
+        # Adaptive threshold based on face height
+        # mouth_open = outerRatio > 0.15 or innerRatio > 0.08
+        mouth_open = outerRatio > MOUTH_OPEN_THRESHOLD_OUTER or innerRatio > MOUTH_OPEN_THRESHOLD_INNER
+
+        # Store the last 10 mouth states
+        mouth_states.append(mouth_open)
+
+        # Only confirm "Mouth Open" if 70% of last 10 frames say it's open
+        mouth_open_final = sum(mouth_states) > 7
+
+        status = "Mouth Open" if mouth_open_final else "Mouth Closed"
         cv2.putText(frame, status, (50, 80), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 2)
 
         return status

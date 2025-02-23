@@ -15,7 +15,6 @@ Code for the database backend server.
 @app.route('/signup_data', methods=['POST'])
 def signup_data():
     data = request.get_json()
-    # print(data)
     # print(insert_signup(data['signupEmail'], data['username'], data['signupPassword']))
     if((insert_signup(data['signupEmail'], data['username'], data['signupPassword'])) == 1):
         response_data = {'message': 'Data inserted successfully!'}
@@ -52,16 +51,20 @@ def quix_page():
 def video_feed():
     return Response(proctoringAlgo(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+#Starting Quiz
+@app.route('/start_quiz', methods=['GET'])
+def start_quiz():
+    startQuiz()  
+    return jsonify(response_data = {'message': 'Quiz started!'})
+
 
 #Router to stop the camera and flask server
 @app.route('/stop_camera')
 def stop_camera():
-    global running
-    running = False
     main_app()
     print('Camera and Server stopping.....')
-    os._exit(0) 
-    return 
+    # os._exit(0) 
+    return jsonify(response_data = {'message': 'Camera stopped!'})
 
 
 #main function

@@ -16,16 +16,17 @@ const camOpen = document.querySelector(".camera")
 // if startQuiz button clicked
 start_btn.onclick = () => {
     info_box.classList.add("activeInfo"); //show info box
-    camOpen;
 };
 
 // if exit quiz button clicked
 exit_btn.onclick = () => {
-    location.replace("./quiz.html");
+    axios.get('http://localhost:5000/stop_camera')
+    location.replace("./quiz_html");
 };
 
 // if continue quiz button clicked
 continue_btn.onclick = () => {
+    axios.get('http://localhost:5000/start_quiz')
     info_box.classList.remove("activeInfo"); //hide info box
     quiz_box.classList.add("activeQuiz") //show quiz
     showQuetions(0);
@@ -119,7 +120,7 @@ const next_btn = document.querySelector("footer .next_btn");
 const bottom_ques_counter = document.querySelector("footer .total_que");
 
 // if next ques button clicked
-next_btn.onclick = () => {
+next_btn.onclick = async () => {
     if(que_count < questions.length-1){
         //if question count is less than total questions
         que_count++;
@@ -136,6 +137,7 @@ next_btn.onclick = () => {
     else{
         clearInterval(counter);
         clearInterval(counterLine);
+        axios.get('http://localhost:5000/stop_camera')
         showResult();
     }
 };
@@ -219,7 +221,7 @@ function showResult(){
     // Wait for 10 seconds (10000 milliseconds) and then redirect to google.com
     setTimeout(function() {
         window.location.href = 'http://127.0.0.1:5000';
-    }, 10000);
+    }, 5000);
 }
 
 // Disable screenshot

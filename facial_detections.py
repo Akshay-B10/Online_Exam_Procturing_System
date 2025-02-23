@@ -4,6 +4,7 @@ import dlib
 import cv2
 from imutils import face_utils
 
+faceDetector = dlib.get_frontal_face_detector()
 shapePredictorModel  = 'shape_predictor_model/shape_predictor_68_face_landmarks.dat'
 shapePredictor = dlib.shape_predictor(shapePredictorModel)
 
@@ -16,7 +17,6 @@ def detectFace(frame):
     #Converting 3-channel images to 1-channel image
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    faceDetector = dlib.get_frontal_face_detector()
     faces = faceDetector(gray,0)
 
     #Count the number of the faces
