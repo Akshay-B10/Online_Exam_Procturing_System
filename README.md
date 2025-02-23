@@ -1,27 +1,91 @@
-# AI based Online Exam Proctoring System
-AI-Based Online Exam Proctoring System is an innovative project designed to maintain the integrity and security of online exams. Utilizing advanced artificial intelligence algorithms, this system monitors and evaluates test-takers in real-time, detecting any suspicious behavior or potential cheating attempts. Through features such as facial recognition, eye tracking, and keystroke analysis, it ensures a fair and transparent examination environment.
+# Python Project README
 
-Moreover, the system generates a comprehensive log file named "activity.txt" that contains detailed records of all the activities and behaviors exhibited by the examinee during the examination. This log file serves as a valuable resource for educators and administrators, allowing them to review and analyze the test-taker's actions post-exam, aiding in the identification of any irregularities or concerns. With its automated monitoring capabilities and detailed activity logging, educators can confidently administer exams remotely, knowing that the integrity of the assessment process is upheld and supported by thorough documentation.
+## Prerequisites
 
-## Key Features and Functions 
-1. Face Detection using Dlib
-2. Eye Gaze Detection
-3. Mouth Tracking
-4. Blink Detection
-5. Head Pose Estimation
-6. Object Detection using Yolo
-7. Audio Detection
+Before setting up this project, ensure you have the following installed:
 
-## Technology Used 
-1. Python
-2. Comuter Vision 
-3. OpenCV
-4. Dlib
-5. Pyaudio
-6. Winsound
-7. Web Skills (HTML, CSS, JS)
-8. Flask Server
-9. SQL Database
+- **Python**: Version 3.11.4
+- **pip**: Version 25.0.1
+- **CMake** (may be required for some dependencies)
+- **Visual Studio C++ Build Tools** (may be required for compiling certain packages)
 
-## Contact 
-For any feedback or queries, please reach out to me at [LinkedIn](https://www.linkedin.com/in/krishnakumaragrawal/)
+## Virtual Environment Setup
+
+To create and activate a virtual environment, use the following commands:
+
+### **For Windows:**
+
+```sh
+python -m venv venv
+venv\Scripts\activate
+```
+
+### **For macOS/Linux:**
+
+```sh
+python -m venv venv
+source venv/bin/activate
+```
+
+## Installing Dependencies
+
+Once the virtual environment is activated, install the required libraries using:
+
+```sh
+pip install -r requirements.txt
+```
+
+If `pip install` does not work, try:
+
+```sh
+pip install --user -r requirements.txt
+```
+
+## Running the Server
+
+To start the server, run:
+
+```sh
+python server.py
+```
+
+Once the server is running, open your web browser and go to:
+
+```
+http://localhost:5000
+```
+
+## Database Configuration
+
+To configure the database, locate the following file:
+
+```
+/backend/db_helper.py
+```
+
+Edit the `user` and `password` fields if necessary (the default user may not need to be changed).
+
+### **Creating the Users Table**
+
+Run the following SQL query to create the `sign_up` table for storing user details:
+
+```sql
+DROP TABLE IF EXISTS `sign_up`;
+CREATE TABLE `sign_up` (
+  `email` varchar(45) NOT NULL,
+  `username` varchar(10) NOT NULL,
+  `password` varchar(15) NOT NULL,
+  PRIMARY KEY (`email`),
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
+
+## Additional Notes
+
+- If you encounter any installation issues, ensure you have **CMake** and **Visual Studio C++ Build Tools** installed.
+- Always activate the virtual environment before running the server or installing dependencies.
+
+---
+
+### Happy Coding! 🚀
+
