@@ -1,4 +1,4 @@
-# Python Project README
+# Online Exam Proctoring System
 
 ## Prerequisites
 
