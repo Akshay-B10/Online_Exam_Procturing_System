@@ -1,15 +1,15 @@
-Flask
-Flask-CORS
 numpy
-opencv-python
-opencv-contrib-python
+flask
+flask_cors
+mysql
+mysql-connector-python
+cv2
+imutils
+cmake
+face-recognition
 dlib
 pyaudio
-winsound; sys_platform == "win32"
+webrtcvad
+noisereduce
 torch
-torchvision
-Pillow
-matplotlib
-scipy
-sqlalchemy
-pymysql
+ultralytics
