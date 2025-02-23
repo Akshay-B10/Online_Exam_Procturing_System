@@ -1,0 +1,15 @@
+Flask
+Flask-CORS
+numpy
+opencv-python
+opencv-contrib-python
+dlib
+pyaudio
+winsound; sys_platform == "win32"
+torch
+torchvision
+Pillow
+matplotlib
+scipy
+sqlalchemy
+pymysql
