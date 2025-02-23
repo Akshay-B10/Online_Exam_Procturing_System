@@ -6,7 +6,7 @@ global isInserted
 cnx = mysql.connector.connect(
     host="localhost", 
     user="root", 
-    password="Akshay2394", 
+    password="your_password", 
     database="quizo"
 )
 
